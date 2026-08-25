@@ -1,0 +1,6 @@
+{
+  "name": "OwlChar",
+  "description": "A character chat and IRL roleplay mobile simulator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -5,58 +5,1952 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>OwlChar</title>
 <style>
-:root{--bg:#f5f5f7;--card:#fff;--text:#111;--muted:#777;--blue:#007aff;--their:#e9e9eb;--line:#ddd}
-[data-theme=dark]{--bg:#000;--card:#1c1c1e;--text:#f5f5f7;--muted:#aaa;--their:#2c2c2e;--line:#3a3a3c}
-*{box-sizing:border-box}body{margin:0;background:#111;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:var(--text)}
-#app{width:100%;max-width:430px;height:100vh;margin:auto;background:var(--bg);overflow:hidden;position:relative}
-.status{height:28px;padding:7px 18px 0;display:flex;justify-content:space-between;font-size:12px;font-weight:600}
-.screen{height:calc(100% - 28px);overflow:auto;padding-bottom:78px}.header{padding:15px 18px 12px;font-size:30px;font-weight:750;display:flex;align-items:center;gap:12px}.back{border:0;background:none;font-size:29px;color:var(--blue);padding:0}.iconbtn{border:0;background:none;color:var(--blue);font-size:22px}
-.search{margin:0 16px 12px;background:var(--their);border:0;border-radius:11px;padding:9px 12px;width:calc(100% - 32px);font-size:16px;color:var(--text)}
-.row{display:flex;align-items:center;padding:11px 16px;border-bottom:1px solid var(--line);gap:12px;cursor:pointer}.avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#c7d2fe,#fbcfe8);display:grid;place-items:center;font-weight:700;color:#333;overflow:hidden;flex:none}.avatar img{width:100%;height:100%;object-fit:cover}.rowmain{min-width:0;flex:1}.name{font-weight:650}.preview{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px;font-size:14px}.time{color:var(--muted);font-size:12px}
-.bottom{position:absolute;bottom:0;left:0;right:0;height:76px;background:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(18px);border-top:1px solid var(--line);display:flex;justify-content:space-around;align-items:center}.tab{background:none;border:0;color:var(--muted);font-size:11px}.tab.active{color:var(--blue)}.tab span{display:block;font-size:24px;margin-bottom:2px}
-.home{padding:28px 24px}.home h1{font-size:34px;margin:0 0 6px}.home p{color:var(--muted)}.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:38px}.appicon{border:0;background:none;color:var(--text);font-size:13px}.appicon .sq{width:64px;height:64px;border-radius:16px;margin:auto auto 7px;display:grid;place-items:center;font-size:30px;box-shadow:0 4px 12px #0002;background:var(--card)}
-.chat{display:flex;flex-direction:column;height:calc(100% - 28px)}.chathead{padding:9px 12px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;background:var(--card)}.chathead .avatar{width:36px;height:36px}.messages{flex:1;overflow:auto;padding:14px 12px 8px}.bubble{max-width:78%;padding:9px 12px;border-radius:18px;margin:6px 0;line-height:1.28;white-space:pre-wrap}.mine{margin-left:auto;background:var(--blue);color:white;border-bottom-right-radius:5px}.theirs{background:var(--their);border-bottom-left-radius:5px}.typing{color:var(--muted);font-size:13px;margin:8px 12px}.composer{display:flex;gap:8px;padding:9px 10px;background:var(--card);border-top:1px solid var(--line)}.composer input{flex:1;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:20px;padding:10px 13px;font-size:16px}.send{border:0;background:var(--blue);color:#fff;border-radius:20px;padding:0 16px;font-weight:650}
-.panel{padding:18px}.card{background:var(--card);border-radius:18px;padding:16px;margin-bottom:14px}.label{font-size:12px;color:var(--muted);margin-bottom:6px}.select,.field{width:100%;padding:11px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--text);font-size:15px;margin-bottom:12px}.btn{border:0;background:var(--blue);color:#fff;padding:11px 16px;border-radius:12px;font-weight:650}.outline{background:transparent;color:var(--blue);border:1px solid var(--blue)}
-.profilepic{width:92px;height:92px;border-radius:50%;margin:4px auto 16px;display:grid;place-items:center;background:linear-gradient(135deg,#c7d2fe,#fbcfe8);font-size:30px;overflow:hidden}.profilepic img{width:100%;height:100%;object-fit:cover}
-.trope{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:18px;padding:8px 11px}.chip.selected{border-color:var(--blue);color:var(--blue)}
-.notice{padding:10px 14px;background:#fff3cd;color:#6b5200;font-size:13px;border-radius:12px;margin:12px 16px}
+:root {
+  --bg: #f2f2f7;
+  --card: #ffffff;
+  --text: #000000;
+  --muted: #8e8e93;
+  --blue: #007aff;
+  --their: #e5e5ea;
+  --line: #d1d1d6;
+  --accent: #5856d6;
+  --danger: #ff3b30;
+  --surface: #ffffff;
+  --glass: rgba(255, 255, 255, 0.82);
+  --tag-bg: rgba(0, 122, 255, 0.1);
+  --island-bg: #000000;
+}
+[data-theme=dark] {
+  --bg: #000000;
+  --card: #1c1c1e;
+  --text: #ffffff;
+  --muted: #98989d;
+  --their: #2c2c2e;
+  --line: #38383a;
+  --accent: #5e5ce6;
+  --danger: #ff453a;
+  --surface: #1c1c1e;
+  --glass: rgba(28, 28, 30, 0.85);
+  --tag-bg: rgba(94, 92, 230, 0.2);
+  --island-bg: #1c1c1e;
+}
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  margin: 0;
+  background: #0f1015;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+#app {
+  width: 100%;
+  max-width: 430px;
+  height: 100vh;
+  max-height: 932px;
+  margin: auto;
+  background: var(--bg);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.55);
+  display: flex;
+  flex-direction: column;
+}
+
+/* iOS Dynamic Island & Status Bar */
+.status {
+  height: 48px;
+  padding: 8px 18px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  z-index: 30;
+  background: var(--bg);
+  flex-shrink: 0;
+  position: relative;
+}
+.dynamic-island {
+  position: absolute;
+  left: 50%;
+  top: 9px;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 28px;
+  background: var(--island-bg);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.island-pulse {
+  width: 7px;
+  height: 7px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #10b981;
+}
+
+.screen {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 84px;
+  display: flex;
+  flex-direction: column;
+}
+.screen-content {
+  flex: 1;
+}
+
+/* Headers */
+.header {
+  padding: 10px 18px 8px;
+  font-size: 27px;
+  font-weight: 750;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: -0.5px;
+}
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+.back {
+  border: 0;
+  background: none;
+  font-size: 32px;
+  color: var(--blue);
+  padding: 0 4px;
+  cursor: pointer;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+.iconbtn {
+  border: 0;
+  background: none;
+  color: var(--blue);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: background 0.15s;
+}
+.iconbtn:active {
+  background: rgba(0, 122, 255, 0.15);
+}
+
+/* Filter Tags / House Filter */
+.house-filters {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.house-filters::-webkit-scrollbar {
+  display: none;
+}
+.house-chip {
+  padding: 6px 13px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: 16px;
+  background: var(--their);
+  color: var(--muted);
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.house-chip.active {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* Search */
+.search-wrap {
+  padding: 0 16px 10px;
+}
+.search {
+  background: var(--their);
+  border: 0;
+  border-radius: 11px;
+  padding: 9px 14px;
+  width: 100%;
+  font-size: 15.5px;
+  color: var(--text);
+  outline: none;
+}
+.search::placeholder {
+  color: var(--muted);
+}
+
+/* Chat List Rows */
+.chatlist {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  gap: 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.row:active {
+  background: color-mix(in srgb, var(--their) 50%, transparent);
+}
+.avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c7d2fe, #fbcfe8);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 20px;
+  color: #1e1b4b;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid rgba(0,0,0,0.06);
+  position: relative;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.avatar.slytherin { background: linear-gradient(135deg, #0d381e, #2ecc71); color: #fff; }
+.avatar.gryffindor { background: linear-gradient(135deg, #740001, #eeba30); color: #fff; }
+.avatar.ravenclaw { background: linear-gradient(135deg, #0e1a40, #5c84d6); color: #fff; }
+.avatar.hufflepuff { background: linear-gradient(135deg, #ecb939, #4a3c31); color: #fff; }
+.avatar.group { background: linear-gradient(135deg, #6366f1, #ec4899); color: #fff; }
+
+.house-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+}
+.house-dot.slytherin { background: #10b981; }
+.house-dot.gryffindor { background: #ef4444; }
+.house-dot.ravenclaw { background: #3b82f6; }
+.house-dot.hufflepuff { background: #f59e0b; }
+
+.rowmain {
+  min-width: 0;
+  flex: 1;
+}
+.name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 2px;
+}
+.name {
+  font-weight: 650;
+  font-size: 16px;
+  letter-spacing: -0.2px;
+}
+.badge-trope {
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: var(--tag-bg);
+  color: var(--blue);
+  font-weight: 600;
+}
+.preview {
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13.5px;
+  line-height: 1.3;
+}
+.time {
+  color: var(--muted);
+  font-size: 11.5px;
+  flex-shrink: 0;
+}
+
+/* Bottom Navigation */
+.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  background: var(--glass);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 25;
+  padding-bottom: 8px;
+}
+.tab {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 10px;
+  transition: color 0.15s;
+}
+.tab.active {
+  color: var(--blue);
+  font-weight: 600;
+}
+.tab span {
+  display: block;
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* Home Screen */
+.home {
+  padding: 24px 20px;
+}
+.home h1 {
+  font-size: 34px;
+  margin: 0 0 4px;
+  letter-spacing: -0.6px;
+  font-weight: 800;
+}
+.home p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 15.5px;
+}
+.apps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 28px;
+}
+.appicon {
+  border: 0;
+  background: none;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.appicon .sq {
+  width: 60px;
+  height: 60px;
+  border-radius: 17px;
+  margin-bottom: 7px;
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  background: var(--card);
+  border: 1px solid var(--line);
+  transition: transform 0.15s;
+}
+.appicon:active .sq {
+  transform: scale(0.92);
+}
+
+.quick-recents {
+  margin-top: 24px;
+}
+.quick-recents-title {
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.recent-pill-list {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.recent-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.recent-pill .avatar {
+  width: 28px;
+  height: 28px;
+  font-size: 12px;
+}
+.recent-pill span {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Chat Screen */
+.chat {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 48px);
+  position: relative;
+}
+.chathead {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card);
+  z-index: 10;
+}
+.chathead .avatar {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+.chathead-info {
+  flex: 1;
+  min-width: 0;
+}
+.chathead-info .name {
+  font-size: 15px;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.chathead-info small {
+  color: var(--muted);
+  font-size: 11.5px;
+  display: block;
+}
+
+/* Relationship / Chemistry Status Bar */
+.chat-affinity-bar {
+  background: color-mix(in srgb, var(--card) 95%, transparent);
+  border-bottom: 1px solid var(--line);
+  padding: 5px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.affinity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Messages Area */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 14px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.msg-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.msg-wrapper.mine {
+  align-items: flex-end;
+}
+.msg-wrapper.theirs {
+  align-items: flex-start;
+}
+.bubble {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 19px;
+  line-height: 1.4;
+  font-size: 15px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.1s;
+}
+.bubble:active {
+  transform: scale(0.98);
+}
+.bubble.mine {
+  background: var(--blue);
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+.bubble.theirs {
+  background: var(--their);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+.bubble em, .bubble i, .action-tag {
+  color: inherit;
+  opacity: 0.94;
+  font-style: italic;
+  font-weight: 400;
+}
+.bubble-time {
+  font-size: 9.5px;
+  opacity: 0.65;
+  margin-top: 4px;
+  text-align: right;
+}
+
+/* Tapback Reactions */
+.reaction-pill {
+  position: absolute;
+  top: -10px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1px 6px;
+  font-size: 13px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  display: flex;
+  gap: 2px;
+  z-index: 2;
+}
+.msg-wrapper.mine .reaction-pill { right: 8px; }
+.msg-wrapper.theirs .reaction-pill { left: 8px; }
+
+.reaction-menu {
+  position: absolute;
+  top: -46px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 4px 8px;
+  display: flex;
+  gap: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  z-index: 100;
+  animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.reaction-menu button {
+  background: none;
+  border: 0;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 2px;
+  transition: transform 0.15s;
+}
+.reaction-menu button:hover {
+  transform: scale(1.3);
+}
+@keyframes popIn {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Typing Indicator */
+.typing-container {
+  padding: 4px 16px 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12.5px;
+  min-height: 24px;
+}
+.typing-dots {
+  display: inline-flex;
+  gap: 3px;
+}
+.typing-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--muted);
+  border-radius: 50%;
+  animation: pulse 1.4s infinite ease-in-out both;
+}
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+@keyframes pulse {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+/* Suggestions Bar */
+.suggestions-bar {
+  display: flex;
+  gap: 6px;
+  padding: 4px 10px 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: var(--card);
+}
+.suggestions-bar::-webkit-scrollbar {
+  display: none;
+}
+.sugg-chip {
+  background: var(--their);
+  border: 0;
+  border-radius: 14px;
+  padding: 6px 12px;
+  font-size: 12.5px;
+  color: var(--text);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.sugg-chip:active {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* Composer */
+.composer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px 10px;
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  z-index: 10;
+}
+.composer input {
+  flex: 1;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 20px;
+  padding: 9px 14px;
+  font-size: 15px;
+  outline: none;
+  font-family: inherit;
+}
+.composer input:focus {
+  border-color: var(--blue);
+}
+.send {
+  border: 0;
+  background: var(--blue);
+  color: #ffffff;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  flex-shrink: 0;
+  transition: opacity 0.15s;
+}
+.send:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Cards & UI Controls */
+.panel {
+  padding: 16px;
+}
+.card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid var(--line);
+}
+.card-header {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.label {
+  font-size: 11.5px;
+  font-weight: 650;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+.select, .field {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  margin-bottom: 14px;
+  outline: none;
+  font-family: inherit;
+}
+.select:focus, .field:focus {
+  border-color: var(--blue);
+}
+.btn {
+  width: 100%;
+  border: 0;
+  background: var(--blue);
+  color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 650;
+  font-size: 15px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: opacity 0.15s;
+}
+.btn:active {
+  opacity: 0.8;
+}
+.btn.outline {
+  background: transparent;
+  color: var(--blue);
+  border: 1px solid var(--blue);
+}
+.btn.danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.profilepic {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  margin: 4px auto 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #c7d2fe, #fbcfe8);
+  font-size: 32px;
+  overflow: hidden;
+  border: 2px solid var(--line);
+}
+.profilepic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trope {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 18px;
+  padding: 6px 11px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chip.selected {
+  border-color: var(--blue);
+  background: var(--tag-bg);
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.preset-btn {
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.preset-btn span {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: normal;
+  margin-top: 2px;
+}
+.preset-btn.active {
+  border-color: var(--blue);
+  background: var(--tag-bg);
+  color: var(--blue);
+}
+
+.notice {
+  padding: 10px 14px;
+  background: color-mix(in srgb, #f59e0b 15%, transparent);
+  color: #b45309;
+  font-size: 13px;
+  border-radius: 12px;
+  line-height: 1.4;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+[data-theme=dark] .notice {
+  color: #fbbf24;
+}
+
+.hidden {
+  display: none !important;
+}
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+.empty-state-icon {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+/* Toast notification */
+.toast {
+  position: absolute;
+  top: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 500;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  pointer-events: none;
+  animation: fadeInOut 2.5s forwards;
+}
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -10px); }
+  15% { opacity: 1; transform: translate(-50%, 0); }
+  85% { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -10px); }
+}
 </style>
 </head>
 <body>
-<div id="app"><div class="status"><span id="clock">9:41</span><span>● ◔ ▰</span></div><div id="root"></div></div>
+<div id="app">
+  <!-- Dynamic Island Header -->
+  <div class="status">
+    <span id="clock">9:41</span>
+    <div class="dynamic-island" id="dynamic-island">
+      <div style="display:flex; align-items:center; gap:5px;">
+        <span>🦉</span>
+        <span id="island-text">OwlChar</span>
+      </div>
+      <div class="island-pulse"></div>
+    </div>
+    <span style="font-size:11px; letter-spacing: 2px;">5G ● ◔ ▰</span>
+  </div>
+
+  <div id="root" style="flex:1; display:flex; flex-direction:column; overflow:hidden; position:relative;"></div>
+</div>
+
 <script>
-const chars=[
-["draco","Draco Malfoy","D"],["harry","Harry Potter","H"],["hermione","Hermione Granger","H"],["ron","Ron Weasley","R"],["pansy","Pansy Parkinson","P"],["theodore","Theodore Nott","T"],["luna","Luna Lovegood","L"],["ginny","Ginny Weasley","G"],["fred","Fred Weasley","F"],["george","George Weasley","G"],["blaise","Blaise Zabini","B"],["neville","Neville Longbottom","N"],["cedric","Cedric Diggory","C"],["mattheo","Mattheo Riddle","M"]
-].map(x=>({id:x[0],name:x[1],initial:x[2]}));
-const tropes=["Friends","Best Friends","Classmates","Rivals","Academic Rivals","Enemies","Enemies to Lovers","Friends to Lovers","Secret Crush","Mutual Crush","Fake Dating","Forced Proximity","Childhood Friends","Protective","Jealous","Secret Relationship","Exes","Custom"];
-let state=JSON.parse(localStorage.getItem("owlchar")||"null")||{profile:{name:"You",username:"@you",details:"",pic:""},theme:"light",chats:{},groups:[]};
-let screen="home",current=null,setupChar="draco",setupTrope="Friends";
-const root=document.getElementById("root"),save=()=>localStorage.setItem("owlchar",JSON.stringify(state));
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
-function avatar(c){return `<div class="avatar">${c.id==="user"&&state.profile.pic?`<img src="${state.profile.pic}">`:(c.initial||c.name[0])}</div>`}
-function nav(){return `<div class="bottom"><button class="tab ${screen==="home"?"active":""}" onclick="go('home')"><span>⌂</span>Home</button><button class="tab ${screen==="messages"||screen==="chat"?"active":""}" onclick="go('messages')"><span>💬</span>Messages</button><button class="tab ${screen==="roleplay"?"active":""}" onclick="go('roleplay')"><span>🎭</span>Roleplay</button><button class="tab ${screen==="profile"?"active":""}" onclick="go('profile')"><span>◉</span>Profile</button></div>`}
-function go(s){screen=s;current=null;render()}
-function render(){document.getElementById("app").dataset.theme=state.theme;if(screen==="home")home();else if(screen==="messages")messages();else if(screen==="setup")setup();else if(screen==="chat")chat();else if(screen==="roleplay")roleplay();else if(screen==="profile")profile()}
-function home(){root.innerHTML=`<div class="screen home"><h1>OwlChar</h1><p>Your phone. Your characters. Your story.</p><div class="apps"><button class="appicon" onclick="go('messages')"><div class="sq">💬</div>Messages</button><button class="appicon" onclick="go('roleplay')"><div class="sq">🎭</div>IRL Roleplay</button><button class="appicon" onclick="go('profile')"><div class="sq">👤</div>Profile</button></div></div>${nav()}`}
-function messages(){root.innerHTML=`<div class="screen"><div class="header">Messages <button class="iconbtn" style="margin-left:auto" onclick="newChat()">＋</button></div><input class="search" placeholder="Search" oninput="filterChats(this.value)"><div id="chatlist">${chars.map(row).join("")}</div></div>${nav()}`}
-function row(c){let a=state.chats[c.id],last=a?.messages?.at(-1);return `<div class="row" onclick="start('${c.id}')">${avatar(c)}<div class="rowmain"><div class="name">${c.name}</div><div class="preview">${last?esc(last.text):"Start a conversation"}</div></div><div class="time">${last?"Now":""}</div></div>`}
-function filterChats(q){document.getElementById("chatlist").innerHTML=chars.filter(c=>c.name.toLowerCase().includes(q.toLowerCase())).map(row).join("")}
-function newChat(){setupChar=chars[0].id;setupTrope="Friends";screen="setup";render()}
-function start(id){setupChar=id;setupTrope=state.chats[id]?.trope||"Friends";screen="setup";render()}
-function setup(){let c=chars.find(x=>x.id===setupChar);root.innerHTML=`<div class="screen"><div class="header"><button class="back" onclick="go('messages')">‹</button>New Chat</div><div class="panel"><div class="card"><div style="display:flex;align-items:center;gap:12px">${avatar(c)}<h2>${c.name}</h2></div><div class="label">Relationship dynamic</div><div class="trope">${tropes.map(t=>`<button class="chip ${t===setupTrope?"selected":""}" onclick="pick('${esc(t)}')">${t}</button>`).join("")}</div><button class="btn" style="margin-top:16px" onclick="begin()">Start Chat</button></div></div></div>`}
-function pick(t){setupTrope=t;setup()}
-function begin(){state.chats[setupChar]??={messages:[],trope:setupTrope,memory:[]};state.chats[setupChar].trope=setupTrope;save();current=setupChar;screen="chat";render()}
-function chat(){let c=chars.find(x=>x.id===current),a=state.chats[current]?.messages||[];root.innerHTML=`<div class="chat"><div class="chathead"><button class="back" onclick="go('messages')">‹</button>${avatar(c)}<div><div class="name">${c.name}</div><small>${state.chats[current]?.trope||"Friends"}</small></div></div><div class="messages" id="msgs">${a.map(m=>`<div class="bubble ${m.me?"mine":"theirs"}">${esc(m.text)}</div>`).join("")}</div><div class="typing hidden" id="typing">${c.name} is typing…</div><form class="composer" onsubmit="send(event)"><input id="input" autocomplete="off" placeholder="Message ${c.name}"><button class="send">Send</button></form></div>`;setTimeout(()=>{let x=document.getElementById("msgs");if(x)x.scrollTop=x.scrollHeight},0)}
-function send(e){e.preventDefault();let inp=document.getElementById("input"),text=inp.value.trim();if(!text)return;let a=state.chats[current];a.messages.push({me:true,text});save();chat();document.getElementById("typing").classList.remove("hidden");setTimeout(()=>{let c=chars.find(x=>x.id===current);a.messages.push({me:false,text:demo(c,text)});save();chat()},650)}
-function demo(c,text){let l=text.toLowerCase();if(c.id==="draco")return l.includes("why")?`*Draco raised an eyebrow.*\n\n"Because apparently you enjoy asking questions you already know the answer to."`:l.includes("sorry")?`*His expression softened for a moment.*\n\n"Fine. I'll accept the apology. Don't make me regret it."`:`*Draco looked at you, clearly considering your words.*\n\n"Interesting. And what exactly am I supposed to do with that information?"`;if(c.id==="hermione")return `*Hermione tilted her head, thinking it over.*\n\n"I understand what you're saying. But I think there's more to it than that. What happened next?"`;if(c.id==="harry")return `*Harry gave you a small smile.*\n\n"Okay, I hear you. But tell me what you actually want to happen."`;if(c.id==="luna")return `*Luna looked thoughtful for a moment.*\n\n"That is rather interesting. I don't think I'd ignore that feeling."`;return `*${c.name} looked at you for a moment.*\n\n"I wasn't expecting you to say that. Tell me more."`}
-function roleplay(){root.innerHTML=`<div class="screen"><div class="header">IRL Roleplay</div><div class="panel"><div class="card"><div class="label">Character</div><select class="select" id="rpc">${chars.map(c=>`<option value="${c.id}">${c.name}</option>`).join("")}</select><div class="label">Relationship</div><select class="select" id="rpt">${tropes.map(t=>`<option>${t}</option>`).join("")}</select><div class="label">Location</div><input class="field" id="rpl" value="Hogwarts library"><div class="label">Situation</div><textarea class="field" id="rps" rows="3" placeholder="Describe the situation..."></textarea><button class="btn" onclick="startRP()">Enter scene</button></div><div class="notice">You control your character. The character reacts to your actions and dialogue.</div></div></div>${nav()}`}
-function startRP(){let id=document.getElementById("rpc").value,c=chars.find(x=>x.id===id),loc=document.getElementById("rpl").value,s=document.getElementById("rps").value||"You encounter each other unexpectedly.";root.innerHTML=`<div class="chat"><div class="chathead"><button class="back" onclick="go('roleplay')">‹</button>${avatar(c)}<div><div class="name">${c.name}</div><small>${loc}</small></div></div><div class="messages" id="rpmsgs"><div class="bubble theirs">*${c.name} noticed you and waited for you to speak.*\n\n"${c.id==="draco"?"Well?":"What do you say?"}"</div></div><form class="composer" onsubmit="rpSend(event,'${id}')"><input id="rpinput" placeholder="Say or do something…"><button class="send">Send</button></form></div>`}
-function rpSend(e,id){e.preventDefault();let i=document.getElementById("rpinput"),t=i.value.trim();if(!t)return;let b=document.getElementById("rpmsgs"),c=chars.find(x=>x.id===id);b.innerHTML+=`<div class="bubble mine">${esc(t)}</div><div class="bubble theirs">*${c.name} reacted directly to what you just said.*\n\n"${id==="draco"?"You really thought that was going to work?":"I didn't expect you to say that. Tell me more."}"</div>`;i.value="";b.scrollTop=b.scrollHeight}
-function profile(){let p=state.profile;root.innerHTML=`<div class="screen"><div class="header">Profile</div><div class="panel"><div class="card"><div class="profilepic">${p.pic?`<img src="${p.pic}">`:"👤"}</div><input type="file" accept="image/*" class="field" onchange="pic(event)"><div class="label">Name</div><input class="field" id="pn" value="${esc(p.name)}"><div class="label">Username</div><input class="field" id="pu" value="${esc(p.username)}"><div class="label">Appearance & details</div><textarea class="field" id="pd" rows="5" placeholder="Hair, eyes, personality, interests...">${esc(p.details)}</textarea><button class="btn" onclick="saveP()">Save Profile</button></div><div class="card"><button class="btn outline" onclick="theme()">Switch to ${state.theme==="light"?"dark":"light"} mode</button></div></div></div>${nav()}`}
-function pic(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{state.profile.pic=r.result;save();profile()};r.readAsDataURL(f)}
-function saveP(){state.profile.name=document.getElementById("pn").value||"You";state.profile.username=document.getElementById("pu").value||"@you";state.profile.details=document.getElementById("pd").value;save();profile()}
-function theme(){state.theme=state.theme==="light"?"dark":"light";save();render()}
-setInterval(()=>document.getElementById("clock").textContent=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}),1000);render();
+const defaultChars = [
+  { id: "draco", name: "Draco Malfoy", initial: "D", house: "slytherin", tagline: "Pure-blood Slytherin heir" },
+  { id: "harry", name: "Harry Potter", initial: "H", house: "gryffindor", tagline: "The Boy Who Lived" },
+  { id: "hermione", name: "Hermione Granger", initial: "H", house: "gryffindor", tagline: "Brightest witch of her age" },
+  { id: "ron", name: "Ron Weasley", initial: "R", house: "gryffindor", tagline: "Loyal Gryffindor keeper" },
+  { id: "pansy", name: "Pansy Parkinson", initial: "P", house: "slytherin", tagline: "Sharp-tongued Slytherin" },
+  { id: "theodore", name: "Theodore Nott", initial: "T", house: "slytherin", tagline: "Enigmatic & observant" },
+  { id: "luna", name: "Luna Lovegood", initial: "L", house: "ravenclaw", tagline: "Whimsical & deeply perceptive" },
+  { id: "ginny", name: "Ginny Weasley", initial: "G", house: "gryffindor", tagline: "Fiery & fiercely independent" },
+  { id: "fred", name: "Fred Weasley", initial: "F", house: "gryffindor", tagline: "Prankster & mischief-maker" },
+  { id: "george", name: "George Weasley", initial: "G", house: "gryffindor", tagline: "Witty & clever twin" },
+  { id: "blaise", name: "Blaise Zabini", initial: "B", house: "slytherin", tagline: "Calm, haughty & discerning" },
+  { id: "neville", name: "Neville Longbottom", initial: "N", house: "gryffindor", tagline: "Herbology master & brave heart" },
+  { id: "cedric", name: "Cedric Diggory", initial: "C", house: "hufflepuff", tagline: "Chivalrous Hufflepuff champion" },
+  { id: "mattheo", name: "Mattheo Riddle", initial: "M", house: "slytherin", tagline: "Intense, brooding & magnetic" }
+];
+
+const tropes = [
+  "Friends",
+  "Best Friends",
+  "Classmates",
+  "Rivals",
+  "Academic Rivals",
+  "Enemies",
+  "Enemies to Lovers",
+  "Friends to Lovers",
+  "Secret Crush",
+  "Mutual Crush",
+  "Fake Dating",
+  "Forced Proximity",
+  "Childhood Friends",
+  "Protective",
+  "Jealous",
+  "Secret Relationship",
+  "Exes"
+];
+
+const roleplayPresets = [
+  {
+    title: "Restricted Section",
+    desc: "Midnight past curfew",
+    location: "Hogwarts Library - Restricted Section",
+    situation: "Hiding behind high bookshelves under the dim glow of a Lumos spell."
+  },
+  {
+    title: "Astronomy Tower",
+    desc: "Under the midnight stars",
+    location: "Astronomy Tower Balcony",
+    situation: "Leaning against the stone parapet in the crisp night breeze."
+  },
+  {
+    title: "Slytherin Common Room",
+    desc: "Sub-lake green firelight",
+    location: "Slytherin Common Room Dungeons",
+    situation: "Alone on the dark emerald leather couch as embers crackle."
+  },
+  {
+    title: "Yule Ball Courtyard",
+    desc: "Snowfall & enchanted waltzes",
+    location: "Covered Rose Garden Courtyard",
+    situation: "Stepping away from the loud music into the quiet falling snow."
+  },
+  {
+    title: "Potions Dungeon",
+    desc: "Partnered brewing assignment",
+    location: "Snape's Potions Dungeon",
+    situation: "Forced to share a cauldron and ingredients for a complex draft."
+  },
+  {
+    title: "Honeydukes Cellar",
+    desc: "Secret passage exit",
+    location: "Hogsmeade - Secret Passageway",
+    situation: "Catching each other slipping through the One-Eyed Witch passage."
+  }
+];
+
+let state = JSON.parse(localStorage.getItem("owlchar") || "null") || {
+  profile: { name: "You", username: "@you", house: "slytherin", details: "", pic: "" },
+  theme: "light",
+  chats: {},
+  customChars: [],
+  activeHouseFilter: "all"
+};
+
+let screen = "home";
+let current = null;
+let setupChar = "draco";
+let setupTrope = "Enemies to Lovers";
+let isSending = false;
+let activeReactionMsgIndex = null;
+let currentRp = {
+  charId: "draco",
+  trope: "Enemies to Lovers",
+  location: "Hogwarts Library - Restricted Section",
+  situation: "Hiding behind high bookshelves under the dim glow of a Lumos spell.",
+  messages: []
+};
+
+const root = document.getElementById("root");
+const save = () => localStorage.setItem("owlchar", JSON.stringify(state));
+const esc = s => String(s || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[c]));
+
+function getAllChars() {
+  return [...defaultChars, ...(state.customChars || [])];
+}
+
+function showToast(msg) {
+  const existing = document.querySelector(".toast");
+  if (existing) existing.remove();
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.textContent = msg;
+  document.getElementById("app").appendChild(el);
+  setTimeout(() => el.remove(), 2600);
+}
+
+function formatBodyText(text) {
+  if (!text) return "";
+  let s = esc(text);
+  // Highlight italics/actions
+  s = s.replace(/\*([^*]+)\*/g, '<span class="action-tag">*$1*</span>');
+  return s;
+}
+
+function avatar(c, extraClass = "") {
+  const houseClass = c?.house || "slytherin";
+  if (c?.id === "user" && state.profile.pic) {
+    return `<div class="avatar ${extraClass}"><img src="${state.profile.pic}" alt="Profile"></div>`;
+  }
+  if (c?.pic) {
+    return `<div class="avatar ${houseClass} ${extraClass}"><img src="${c.pic}" alt="${c.name}"><div class="house-dot ${houseClass}"></div></div>`;
+  }
+  return `
+    <div class="avatar ${houseClass} ${extraClass}">
+      ${c?.initial || (c?.name ? c.name[0] : "👤")}
+      <div class="house-dot ${houseClass}"></div>
+    </div>
+  `;
+}
+
+function nav() {
+  return `
+    <div class="bottom">
+      <button class="tab ${screen === "home" ? "active" : ""}" onclick="go('home')">
+        <span>⌂</span>Home
+      </button>
+      <button class="tab ${screen === "messages" || screen === "chat" || screen === "setup" ? "active" : ""}" onclick="go('messages')">
+        <span>💬</span>Messages
+      </button>
+      <button class="tab ${screen === "roleplay" || screen === "rp-chat" ? "active" : ""}" onclick="go('roleplay')">
+        <span>🎭</span>Roleplay
+      </button>
+      <button class="tab ${screen === "create-char" ? "active" : ""}" onclick="go('create-char')">
+        <span>🪄</span>Creator
+      </button>
+      <button class="tab ${screen === "profile" ? "active" : ""}" onclick="go('profile')">
+        <span>◉</span>Profile
+      </button>
+    </div>
+  `;
+}
+
+function go(s) {
+  screen = s;
+  current = null;
+  activeReactionMsgIndex = null;
+  render();
+}
+
+function render() {
+  document.getElementById("app").dataset.theme = state.theme;
+  if (screen === "home") home();
+  else if (screen === "messages") messages();
+  else if (screen === "setup") setup();
+  else if (screen === "chat") chat();
+  else if (screen === "roleplay") roleplay();
+  else if (screen === "rp-chat") rpChat();
+  else if (screen === "create-char") createCharScreen();
+  else if (screen === "profile") profile();
+}
+
+/* HOME SCREEN */
+function home() {
+  const all = getAllChars();
+  const recentChatIds = Object.keys(state.chats).filter(id => state.chats[id]?.messages?.length > 0);
+  const recentChars = recentChatIds.map(id => all.find(c => c.id === id)).filter(Boolean);
+
+  root.innerHTML = `
+    <div class="screen home">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div>
+          <h1>OwlChar</h1>
+          <p>Hogwarts AI Character Messaging</p>
+        </div>
+        <div class="avatar ${state.profile.house || "slytherin"}" style="width:44px; height:44px; font-size:16px; cursor:pointer;" onclick="go('profile')">
+          ${state.profile.pic ? `<img src="${state.profile.pic}">` : (state.profile.name[0] || "Y")}
+        </div>
+      </div>
+
+      <div class="apps">
+        <button class="appicon" onclick="go('messages')">
+          <div class="sq">💬</div>Messages
+        </button>
+        <button class="appicon" onclick="go('roleplay')">
+          <div class="sq">🎭</div>Roleplay
+        </button>
+        <button class="appicon" onclick="go('create-char')">
+          <div class="sq">🪄</div>Create
+        </button>
+        <button class="appicon" onclick="go('profile')">
+          <div class="sq">👤</div>Profile
+        </button>
+      </div>
+
+      ${recentChars.length > 0 ? `
+        <div class="quick-recents">
+          <div class="quick-recents-title">Recent Conversations</div>
+          <div class="recent-pill-list">
+            ${recentChars.map(c => `
+              <div class="recent-pill" onclick="start('${c.id}')">
+                ${avatar(c)}
+                <span>${c.name.split(" ")[0]}</span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      ` : ""}
+
+      <div class="card" style="margin-top: 24px;">
+        <div class="card-header">
+          <span>✨ Dynamic AI Chemistry</span>
+          <span style="font-size:11px; color:var(--blue); font-weight:600;">ACTIVE</span>
+        </div>
+        <div style="font-size: 13.5px; line-height: 1.5; color:var(--muted);">
+          Characters respond to your exact words, retain memories of previous texts, and follow your selected relationship trope (Enemies to Lovers, Secret Crush, Academic Rivals, and more).
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span>🎭 Featured Roleplay Scene</span>
+          <button class="iconbtn" style="font-size:14px; width:auto; height:auto; color:var(--blue);" onclick="go('roleplay')">Open</button>
+        </div>
+        <div style="font-size: 13.5px; line-height: 1.4;">
+          <strong>Astronomy Tower Past Curfew</strong> with Draco Malfoy. Whispering under the stars while avoiding Filch.
+        </div>
+      </div>
+    </div>
+    ${nav()}
+  `;
+}
+
+/* MESSAGES SCREEN */
+function messages() {
+  const all = getAllChars();
+  const currentFilter = state.activeHouseFilter || "all";
+  
+  let filtered = all;
+  if (currentFilter !== "all") {
+    filtered = all.filter(c => c.house === currentFilter);
+  }
+
+  root.innerHTML = `
+    <div class="screen">
+      <div class="header">
+        Messages
+        <div class="header-actions">
+          <button class="iconbtn" title="Create Character" onclick="go('create-char')">🪄</button>
+          <button class="iconbtn" title="New Chat" onclick="newChat()">＋</button>
+        </div>
+      </div>
+
+      <div class="house-filters">
+        <button class="house-chip ${currentFilter === "all" ? "active" : ""}" onclick="filterHouse('all')">All Houses</button>
+        <button class="house-chip ${currentFilter === "slytherin" ? "active" : ""}" onclick="filterHouse('slytherin')">🐍 Slytherin</button>
+        <button class="house-chip ${currentFilter === "gryffindor" ? "active" : ""}" onclick="filterHouse('gryffindor')">🦁 Gryffindor</button>
+        <button class="house-chip ${currentFilter === "ravenclaw" ? "active" : ""}" onclick="filterHouse('ravenclaw')">🦅 Ravenclaw</button>
+        <button class="house-chip ${currentFilter === "hufflepuff" ? "active" : ""}" onclick="filterHouse('hufflepuff')">🦡 Hufflepuff</button>
+      </div>
+
+      <div class="search-wrap">
+        <input class="search" id="chat-search" placeholder="Search character or house..." oninput="filterChats(this.value)">
+      </div>
+
+      <div id="chatlist" class="chatlist">
+        ${filtered.map(row).join("")}
+      </div>
+    </div>
+    ${nav()}
+  `;
+}
+
+function filterHouse(house) {
+  state.activeHouseFilter = house;
+  save();
+  messages();
+}
+
+function row(c) {
+  const chatData = state.chats[c.id];
+  const last = chatData?.messages?.at(-1);
+  const tropeLabel = chatData?.trope || "Friends";
+  return `
+    <div class="row" onclick="start('${c.id}')">
+      ${avatar(c)}
+      <div class="rowmain">
+        <div class="name-row">
+          <span class="name">${c.name}</span>
+          <span class="badge-trope">${esc(tropeLabel)}</span>
+        </div>
+        <div class="preview">${last ? esc(last.text) : `<span style="opacity:0.75;">${c.tagline}</span>`}</div>
+      </div>
+      <div class="time">${last ? (last.time || "Now") : ""}</div>
+    </div>
+  `;
+}
+
+function filterChats(q) {
+  const all = getAllChars();
+  const currentFilter = state.activeHouseFilter || "all";
+  let list = currentFilter === "all" ? all : all.filter(c => c.house === currentFilter);
+
+  if (q.trim()) {
+    list = list.filter(c => 
+      c.name.toLowerCase().includes(q.toLowerCase()) || 
+      c.tagline.toLowerCase().includes(q.toLowerCase()) ||
+      c.house.toLowerCase().includes(q.toLowerCase())
+    );
+  }
+  document.getElementById("chatlist").innerHTML = list.map(row).join("");
+}
+
+function newChat() {
+  const all = getAllChars();
+  setupChar = all[0].id;
+  setupTrope = "Enemies to Lovers";
+  screen = "setup";
+  render();
+}
+
+function start(id) {
+  if (state.chats[id] && state.chats[id].messages && state.chats[id].messages.length > 0) {
+    current = id;
+    screen = "chat";
+    render();
+  } else {
+    setupChar = id;
+    setupTrope = state.chats[id]?.trope || "Enemies to Lovers";
+    screen = "setup";
+    render();
+  }
+}
+
+/* CHAT SETUP */
+function setup() {
+  const all = getAllChars();
+  const c = all.find(x => x.id === setupChar) || all[0];
+
+  root.innerHTML = `
+    <div class="screen">
+      <div class="header">
+        <button class="back" onclick="go('messages')">‹</button>
+        <span>Chat Dynamic</span>
+      </div>
+      <div class="panel">
+        <div class="card">
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom: 16px;">
+            ${avatar(c)}
+            <div>
+              <h2 style="margin:0; font-size:20px;">${c.name}</h2>
+              <small style="color:var(--muted);">${c.tagline}</small>
+            </div>
+          </div>
+          
+          <div class="label">Select Character</div>
+          <select class="select" id="char-select" onchange="changeSetupChar(this.value)">
+            ${all.map(ch => `<option value="${ch.id}" ${ch.id === setupChar ? "selected" : ""}>${ch.name} (${ch.house.toUpperCase()})</option>`).join("")}
+          </select>
+
+          <div class="label">Relationship Dynamic / Trope</div>
+          <div class="trope">
+            ${tropes.map(t => `<button class="chip ${t === setupTrope ? "selected" : ""}" onclick="pickTrope('${esc(t)}')">${t}</button>`).join("")}
+          </div>
+
+          <div class="label" style="margin-top:8px;">Custom Dynamic</div>
+          <input class="field" id="custom-trope" placeholder="e.g. Secret accomplices, Yule Ball partners..." value="${!tropes.includes(setupTrope) ? esc(setupTrope) : ""}" oninput="customTropeChanged(this.value)">
+
+          <button class="btn" style="margin-top:8px;" onclick="beginChat()">Start Conversation</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function changeSetupChar(id) {
+  setupChar = id;
+  setup();
+}
+
+function pickTrope(t) {
+  setupTrope = t;
+  const customInput = document.getElementById("custom-trope");
+  if (customInput) customInput.value = "";
+  setup();
+}
+
+function customTropeChanged(val) {
+  if (val.trim()) {
+    setupTrope = val.trim();
+    document.querySelectorAll(".trope .chip").forEach(c => c.classList.remove("selected"));
+  }
+}
+
+function beginChat() {
+  state.chats[setupChar] = state.chats[setupChar] || { messages: [], trope: setupTrope };
+  state.chats[setupChar].trope = setupTrope;
+  save();
+  current = setupChar;
+  screen = "chat";
+  render();
+}
+
+function clearCurrentChat() {
+  const all = getAllChars();
+  const c = all.find(x => x.id === current) || { name: "Character" };
+  if (confirm(`Reset conversation history with ${c.name}?`)) {
+    if (state.chats[current]) {
+      state.chats[current].messages = [];
+      save();
+      render();
+      showToast("Conversation cleared");
+    }
+  }
+}
+
+/* CHAT CONVERSATION SCREEN */
+function chat() {
+  const all = getAllChars();
+  const c = all.find(x => x.id === current) || { id: current, name: "Character", house: "slytherin" };
+  const chatData = state.chats[current] = state.chats[current] || { messages: [], trope: "Friends" };
+  const messagesList = chatData.messages || [];
+
+  // Calculate dynamic tension / chemistry score
+  const count = messagesList.length;
+  const chemistryPercent = Math.min(98, 45 + count * 4);
+
+  const defaultSuggestions = [
+    `What are you doing later?`,
+    `Stop smirking at me.`,
+    `I need to ask you something.`
+  ];
+
+  if (c.id === 'draco') {
+    defaultSuggestions[0] = "Are you in the common room?";
+    defaultSuggestions[1] = "Don't act like you don't care.";
+    defaultSuggestions[2] = "I saw you in Potions class.";
+  } else if (c.id === 'hermione') {
+    defaultSuggestions[0] = "Did you finish the essay?";
+    defaultSuggestions[1] = "Meet me in the library?";
+    defaultSuggestions[2] = "I have a question about Charms.";
+  } else if (c.id === 'harry') {
+    defaultSuggestions[0] = "Heading to the Quidditch pitch?";
+    defaultSuggestions[1] = "Are you alright today?";
+    defaultSuggestions[2] = "Want to take a walk by the lake?";
+  } else if (c.id === 'mattheo') {
+    defaultSuggestions[0] = "Why are you looking at me like that?";
+    defaultSuggestions[1] = "Meet me after curfew.";
+    defaultSuggestions[2] = "You think you're dangerous, don't you?";
+  }
+
+  root.innerHTML = `
+    <div class="chat">
+      <div class="chathead">
+        <button class="back" onclick="go('messages')">‹</button>
+        ${avatar(c)}
+        <div class="chathead-info">
+          <div class="name">
+            ${c.name}
+            <span style="font-size:10px; opacity:0.7;">●</span>
+          </div>
+          <small>${chatData.trope || "Friends"} • ${c.house.toUpperCase()}</small>
+        </div>
+        <button class="iconbtn" title="Change Trope" onclick="changeCurrentTrope()" style="font-size:15px;">⚙️</button>
+        <button class="iconbtn" title="Clear Chat" onclick="clearCurrentChat()" style="font-size:15px; color:var(--danger);">🗑</button>
+      </div>
+
+      <div class="chat-affinity-bar">
+        <span>Dynamic: <strong>${esc(chatData.trope || "Friends")}</strong></span>
+        <span class="affinity-badge">🔥 Chemistry ${chemistryPercent}%</span>
+      </div>
+
+      <div class="messages" id="msgs">
+        ${messagesList.length === 0 ? `
+          <div class="empty-state">
+            <div class="empty-state-icon">💬</div>
+            <div style="font-weight:600; margin-bottom:4px; font-size:16px;">Chat with ${c.name}</div>
+            <div style="font-size:13px; max-width:280px; line-height:1.4;">
+              Type a message or tap one of the suggested replies below to begin your story.
+            </div>
+          </div>
+        ` : messagesList.map((m, idx) => `
+          <div class="msg-wrapper ${m.me ? "mine" : "theirs"}">
+            ${activeReactionMsgIndex === idx ? `
+              <div class="reaction-menu">
+                <button onclick="addReaction(${idx}, '❤️')">❤️</button>
+                <button onclick="addReaction(${idx}, '😂')">😂</button>
+                <button onclick="addReaction(${idx}, '😮')">😮</button>
+                <button onclick="addReaction(${idx}, '😡')">😡</button>
+                <button onclick="addReaction(${idx}, '🪄')">🪄</button>
+                <button onclick="addReaction(${idx}, '🦉')">🦉</button>
+              </div>
+            ` : ""}
+            
+            <div class="bubble ${m.me ? "mine" : "theirs"}" onclick="toggleReactionMenu(${idx})">
+              ${m.reaction ? `<div class="reaction-pill">${m.reaction}</div>` : ""}
+              ${formatBodyText(m.text)}
+              <div class="bubble-time">${m.time || ""}</div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+
+      <div class="typing-container ${isSending ? "" : "hidden"}" id="typing">
+        <div class="typing-dots">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+        </div>
+        <span>${c.name} is typing…</span>
+      </div>
+
+      <div class="suggestions-bar">
+        ${defaultSuggestions.map(s => `
+          <button class="sugg-chip" onclick="sendSuggestedText('${esc(s)}')">${s}</button>
+        `).join("")}
+      </div>
+
+      <form class="composer" onsubmit="sendChat(event)">
+        <input id="input" autocomplete="off" placeholder="Message ${c.name}..." ${isSending ? "disabled" : ""}>
+        <button class="send" ${isSending ? "disabled" : ""} title="Send">↑</button>
+      </form>
+    </div>
+  `;
+
+  setTimeout(() => {
+    const el = document.getElementById("msgs");
+    if (el) el.scrollTop = el.scrollHeight;
+    const inp = document.getElementById("input");
+    if (inp && !isSending) inp.focus();
+  }, 10);
+}
+
+function toggleReactionMenu(idx) {
+  activeReactionMsgIndex = activeReactionMsgIndex === idx ? null : idx;
+  chat();
+}
+
+function addReaction(idx, emoji) {
+  const chatData = state.chats[current];
+  if (chatData && chatData.messages && chatData.messages[idx]) {
+    chatData.messages[idx].reaction = emoji;
+    save();
+  }
+  activeReactionMsgIndex = null;
+  chat();
+}
+
+function changeCurrentTrope() {
+  setupChar = current;
+  setupTrope = state.chats[current]?.trope || "Friends";
+  screen = "setup";
+  render();
+}
+
+function sendSuggestedText(text) {
+  const inp = document.getElementById("input");
+  if (inp) {
+    inp.value = text;
+    sendChat(new Event("submit"));
+  }
+}
+
+async function sendChat(e) {
+  if (e) e.preventDefault();
+  if (isSending) return;
+
+  const inp = document.getElementById("input");
+  const text = inp ? inp.value.trim() : "";
+  if (!text) return;
+
+  const all = getAllChars();
+  const charObj = all.find(x => x.id === current) || { id: current, name: "Character", house: "slytherin" };
+  const chatData = state.chats[current] = state.chats[current] || { messages: [], trope: "Friends" };
+
+  const nowTime = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+
+  chatData.messages.push({
+    me: true,
+    text,
+    time: nowTime
+  });
+  save();
+
+  if (inp) inp.value = "";
+  isSending = true;
+  chat();
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        character: charObj,
+        trope: chatData.trope,
+        history: chatData.messages.slice(0, -1),
+        userMessage: text,
+        userProfile: state.profile
+      })
+    });
+
+    const data = await res.json();
+    chatData.messages.push({
+      me: false,
+      text: data.text || `*${charObj.name} glances over thoughtfully.*`,
+      time: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+    });
+    save();
+  } catch (err) {
+    console.error("Chat error:", err);
+    chatData.messages.push({
+      me: false,
+      text: `*${charObj.name} read your text with an observant smile.*\n\n"Interesting. Tell me what else is on your mind."`,
+      time: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+    });
+    save();
+  } finally {
+    isSending = false;
+    chat();
+  }
+}
+
+/* IRL ROLEPLAY SETUP */
+function roleplay() {
+  const all = getAllChars();
+
+  root.innerHTML = `
+    <div class="screen">
+      <div class="header">IRL Roleplay</div>
+      <div class="panel">
+        <div class="card">
+          <div class="card-header">
+            <span>✨ Roleplay Presets</span>
+          </div>
+          <div class="preset-grid">
+            ${roleplayPresets.map((p, i) => `
+              <button class="preset-btn" onclick="applyPreset(${i})">
+                ${p.title}
+                <span>${p.desc}</span>
+              </button>
+            `).join("")}
+          </div>
+
+          <div class="label">Character</div>
+          <select class="select" id="rpc">
+            ${all.map(c => `<option value="${c.id}" ${c.id === currentRp.charId ? "selected" : ""}>${c.name} (${c.house.toUpperCase()})</option>`).join("")}
+          </select>
+
+          <div class="label">Relationship Dynamic</div>
+          <select class="select" id="rpt">
+            ${tropes.map(t => `<option value="${t}" ${t === currentRp.trope ? "selected" : ""}>${t}</option>`).join("")}
+          </select>
+
+          <div class="label">Location / Setting</div>
+          <input class="field" id="rpl" value="${esc(currentRp.location)}" placeholder="e.g. Astronomy Tower, Slytherin Common Room...">
+
+          <div class="label">Situation / Hook</div>
+          <textarea class="field" id="rps" rows="3" placeholder="Describe the scene and hook...">${esc(currentRp.situation)}</textarea>
+
+          <button class="btn" id="start-rp-btn" onclick="startRoleplayScene()">Enter Scene</button>
+        </div>
+
+        <div class="notice">
+          🎭 <strong>Immersive Literary Engine:</strong> Actions & sensory cues are formatted in *asterisks*, and spoken dialogue is formatted in "quotations".
+        </div>
+      </div>
+    </div>
+    ${nav()}
+  `;
+}
+
+function applyPreset(i) {
+  const p = roleplayPresets[i];
+  if (!p) return;
+  document.getElementById("rpl").value = p.location;
+  document.getElementById("rps").value = p.situation;
+  currentRp.location = p.location;
+  currentRp.situation = p.situation;
+  showToast(`Loaded ${p.title}`);
+}
+
+async function startRoleplayScene() {
+  const all = getAllChars();
+  const charId = document.getElementById("rpc").value;
+  const trope = document.getElementById("rpt").value;
+  const location = document.getElementById("rpl").value.trim() || "Hogwarts Castle";
+  const situation = document.getElementById("rps").value.trim() || "You encounter each other unexpectedly.";
+
+  currentRp.charId = charId;
+  currentRp.trope = trope;
+  currentRp.location = location;
+  currentRp.situation = situation;
+  currentRp.messages = [];
+
+  const startBtn = document.getElementById("start-rp-btn");
+  if (startBtn) {
+    startBtn.disabled = true;
+    startBtn.textContent = "Entering Scene...";
+  }
+
+  const charObj = all.find(x => x.id === charId) || all[0];
+
+  try {
+    const res = await fetch('/api/roleplay/starter', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        character: charObj,
+        trope,
+        location,
+        situation,
+        userProfile: state.profile
+      })
+    });
+    const data = await res.json();
+    const starterText = data.text || `*${charObj.name} looked up across ${location}, eyes locking onto yours.*\n\n"What are you doing here?"`;
+
+    currentRp.messages.push({
+      me: false,
+      text: starterText,
+      time: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+    });
+  } catch (err) {
+    console.error("Starter error:", err);
+    currentRp.messages.push({
+      me: false,
+      text: `*${charObj.name} leaned against the wall at ${location}, observing your approach with a measured gaze.*\n\n"You're late. What took you so long?"`,
+      time: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+    });
+  }
+
+  screen = "rp-chat";
+  render();
+}
+
+/* IRL ROLEPLAY CHAT */
+function rpChat() {
+  const all = getAllChars();
+  const charObj = all.find(x => x.id === currentRp.charId) || all[0];
+
+  root.innerHTML = `
+    <div class="chat">
+      <div class="chathead">
+        <button class="back" onclick="go('roleplay')">‹</button>
+        ${avatar(charObj)}
+        <div class="chathead-info">
+          <div class="name">${charObj.name}</div>
+          <small style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">📍 ${esc(currentRp.location)}</small>
+        </div>
+        <span class="badge-trope" style="font-size:10.5px;">${esc(currentRp.trope)}</span>
+      </div>
+
+      <div class="messages" id="rpmsgs">
+        ${currentRp.messages.map((m, idx) => `
+          <div class="msg-wrapper ${m.me ? "mine" : "theirs"}">
+            <div class="bubble ${m.me ? "mine" : "theirs"}">
+              ${formatBodyText(m.text)}
+              <div class="bubble-time">${m.time || ""}</div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+
+      <div class="typing-container ${isSending ? "" : "hidden"}" id="rptyping">
+        <div class="typing-dots">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+        </div>
+        <span>${charObj.name} is acting…</span>
+      </div>
+
+      <form class="composer" onsubmit="sendRoleplay(event)">
+        <input id="rpinput" autocomplete="off" placeholder="Say or do something (e.g. *walks closer* 'Are you hiding?')..." ${isSending ? "disabled" : ""}>
+        <button class="send" ${isSending ? "disabled" : ""} title="Send">↑</button>
+      </form>
+    </div>
+  `;
+
+  setTimeout(() => {
+    const el = document.getElementById("rpmsgs");
+    if (el) el.scrollTop = el.scrollHeight;
+    const inp = document.getElementById("rpinput");
+    if (inp && !isSending) inp.focus();
+  }, 10);
+}
+
+async function sendRoleplay(e) {
+  if (e) e.preventDefault();
+  if (isSending) return;
+
+  const inp = document.getElementById("rpinput");
+  const text = inp ? inp.value.trim() : "";
+  if (!text) return;
+
+  const all = getAllChars();
+  const charObj = all.find(x => x.id === currentRp.charId) || all[0];
+
+  currentRp.messages.push({
+    me: true,
+    text,
+    time: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+  });
+
+  if (inp) inp.value = "";
+  isSending = true;
+  rpChat();
+
+  try {
+    const res = await fetch('/api/roleplay', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        character: charObj,
+        trope: currentRp.trope,
+        location: currentRp.location,
+        situation: currentRp.situation,
+        history: currentRp.messages.slice(0, -1),
+        userAction: text,
+        userProfile: state.profile
+      })
+    });
+
+    const data = await res.json();
+    currentRp.messages.push({
+      me: false,
+      text: data.text || `*${charObj.name} reacted immediately to your gesture.*`,
+      time: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+    });
+  } catch (err) {
+    console.error("RP Error:", err);
+    currentRp.messages.push({
+      me: false,
+      text: `*${charObj.name} stepped closer, their gaze fixing onto yours.*\n\n"You're not answering my question, are you?"`,
+      time: new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+    });
+  } finally {
+    isSending = false;
+    rpChat();
+  }
+}
+
+/* CUSTOM CHARACTER CREATOR */
+function createCharScreen() {
+  root.innerHTML = `
+    <div class="screen">
+      <div class="header">Character Creator</div>
+      <div class="panel">
+        <div class="card">
+          <div class="card-header">Create Custom Character</div>
+
+          <div class="label">Character Full Name</div>
+          <input class="field" id="new-name" placeholder="e.g. Lorenzo Berkshire, Regulus Black...">
+
+          <div class="label">Hogwarts House</div>
+          <select class="select" id="new-house">
+            <option value="slytherin">🐍 Slytherin</option>
+            <option value="gryffindor">🦁 Gryffindor</option>
+            <option value="ravenclaw">🦅 Ravenclaw</option>
+            <option value="hufflepuff">🦡 Hufflepuff</option>
+          </select>
+
+          <div class="label">Tagline / Short Title</div>
+          <input class="field" id="new-tagline" placeholder="e.g. Charismatic pureblood heir">
+
+          <div class="label">Personality, Speech & Background</div>
+          <textarea class="field" id="new-traits" rows="4" placeholder="Describe their personality, texting habits, humor, flaws, and how they treat the user..."></textarea>
+
+          <button class="btn" onclick="saveCustomChar()">Save Character</button>
+        </div>
+
+        ${state.customChars && state.customChars.length > 0 ? `
+          <div class="card">
+            <div class="card-header">Your Custom Characters</div>
+            ${state.customChars.map((c, i) => `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--line);">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  ${avatar(c)}
+                  <div>
+                    <div style="font-weight:600; font-size:14.5px;">${c.name}</div>
+                    <small style="color:var(--muted);">${c.house.toUpperCase()}</small>
+                  </div>
+                </div>
+                <button class="btn danger" style="width:auto; padding:5px 12px; font-size:12px;" onclick="deleteCustomChar(${i})">Delete</button>
+              </div>
+            `).join("")}
+          </div>
+        ` : ""}
+      </div>
+    </div>
+    ${nav()}
+  `;
+}
+
+function saveCustomChar() {
+  const name = document.getElementById("new-name").value.trim();
+  const house = document.getElementById("new-house").value;
+  const tagline = document.getElementById("new-tagline").value.trim() || `${house} student`;
+  const traits = document.getElementById("new-traits").value.trim();
+
+  if (!name) {
+    alert("Please enter a character name.");
+    return;
+  }
+
+  const id = "custom_" + Date.now();
+  state.customChars = state.customChars || [];
+  state.customChars.push({
+    id,
+    name,
+    initial: name[0],
+    house,
+    tagline,
+    traits
+  });
+  save();
+  showToast(`Created ${name}!`);
+  go("messages");
+}
+
+function deleteCustomChar(index) {
+  if (confirm("Delete this custom character?")) {
+    state.customChars.splice(index, 1);
+    save();
+    createCharScreen();
+  }
+}
+
+/* PROFILE SCREEN */
+function profile() {
+  const p = state.profile;
+  root.innerHTML = `
+    <div class="screen">
+      <div class="header">Your Profile</div>
+      <div class="panel">
+        <div class="card">
+          <div class="profilepic">
+            ${p.pic ? `<img src="${p.pic}">` : "👤"}
+          </div>
+          
+          <div style="display:flex; justify-content:center; gap:8px; margin-bottom:16px;">
+            <label class="btn outline" style="width:auto; padding:7px 14px; font-size:13px; cursor:pointer;">
+              Change Photo
+              <input type="file" accept="image/*" style="display:none;" onchange="pic(event)">
+            </label>
+            ${p.pic ? `<button class="btn danger" style="width:auto; padding:7px 14px; font-size:13px;" onclick="removePic()">Remove</button>` : ""}
+          </div>
+
+          <div class="label">Your Character Name</div>
+          <input class="field" id="pn" value="${esc(p.name)}" placeholder="Your character name">
+
+          <div class="label">Handle / Username</div>
+          <input class="field" id="pu" value="${esc(p.username)}" placeholder="@yourhandle">
+
+          <div class="label">Your Hogwarts House</div>
+          <select class="select" id="ph">
+            <option value="slytherin" ${p.house === "slytherin" ? "selected" : ""}>🐍 Slytherin</option>
+            <option value="gryffindor" ${p.house === "gryffindor" ? "selected" : ""}>🦁 Gryffindor</option>
+            <option value="ravenclaw" ${p.house === "ravenclaw" ? "selected" : ""}>🦅 Ravenclaw</option>
+            <option value="hufflepuff" ${p.house === "hufflepuff" ? "selected" : ""}>🦡 Hufflepuff</option>
+          </select>
+
+          <div class="label">Appearance & Personality Details</div>
+          <textarea class="field" id="pd" rows="3" placeholder="e.g. Silver-framed glasses, witty, skilled in Charms, quiet...">${esc(p.details)}</textarea>
+
+          <button class="btn" onclick="saveProfile()">Save Profile</button>
+        </div>
+
+        <div class="card">
+          <div class="card-header">Appearance Theme</div>
+          <button class="btn outline" onclick="toggleTheme()">
+            Switch to ${state.theme === "light" ? "Dark" : "Light"} Mode
+          </button>
+        </div>
+      </div>
+    </div>
+    ${nav()}
+  `;
+}
+
+function pic(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    state.profile.pic = r.result;
+    save();
+    profile();
+  };
+  r.readAsDataURL(f);
+}
+
+function removePic() {
+  state.profile.pic = "";
+  save();
+  profile();
+}
+
+function saveProfile() {
+  state.profile.name = document.getElementById("pn").value.trim() || "You";
+  state.profile.username = document.getElementById("pu").value.trim() || "@you";
+  state.profile.house = document.getElementById("ph").value || "slytherin";
+  state.profile.details = document.getElementById("pd").value.trim();
+  save();
+  showToast("Profile saved!");
+  profile();
+}
+
+function toggleTheme() {
+  state.theme = state.theme === "light" ? "dark" : "light";
+  save();
+  render();
+}
+
+// Live Clock
+setInterval(() => {
+  const clockEl = document.getElementById("clock");
+  if (clockEl) {
+    clockEl.textContent = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  }
+}, 1000);
+
+render();
 </script>
 </body>
 </html>
