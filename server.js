@@ -524,7 +524,6 @@ Someone can:
 - care but hide it
 - be annoyed while still being concerned
 - joke while actually being upset
-- become jealous without admitting it
 - hesitate
 - misunderstand
 - change their mind
@@ -836,8 +835,7 @@ async function generateCharacterResponse({
   ai,
   systemInstruction,
   history,
-  userMessage,
-  temperature = 0.9
+  userMessage
 }) {
   const contents = historyToContents(history);
 
@@ -847,11 +845,10 @@ async function generateCharacterResponse({
   });
 
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: "gemini-3.8-flash",
     contents,
     config: {
-      systemInstruction,
-      temperature
+      systemInstruction
     }
   });
 
@@ -909,8 +906,7 @@ app.post("/api/chat", async (req, res) => {
           ai,
           systemInstruction,
           history,
-          userMessage,
-          temperature: 0.9
+          userMessage
         });
 
         return res.json({
@@ -1001,8 +997,7 @@ app.post("/api/roleplay", async (req, res) => {
           ai,
           systemInstruction,
           history,
-          userMessage: userAction,
-          temperature: 0.9
+          userMessage: userAction
         });
 
         return res.json({
@@ -1096,7 +1091,7 @@ Requirements:
 `;
 
         const response = await ai.models.generateContent({
-          model: "gemini-2.5-flash",
+          model: "gemini-3.8-flash",
           contents: [
             {
               role: "user",
@@ -1104,8 +1099,7 @@ Requirements:
             }
           ],
           config: {
-            systemInstruction,
-            temperature: 0.9
+            systemInstruction
           }
         });
 
@@ -1243,10 +1237,6 @@ app.post("/api/suggestions", async (req, res) => {
 /*
 |--------------------------------------------------------------------------
 | FRONTEND FALLBACK
-|--------------------------------------------------------------------------
-|
-| Express 5 uses a different wildcard syntax than older Express versions.
-| This route lets the browser load index.html for client-side routes.
 |--------------------------------------------------------------------------
 */
 
